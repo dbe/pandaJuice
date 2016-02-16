@@ -49,3 +49,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ### User Added ###
 gem 'pg'
 gem 'haml-rails'
+gem 'devise', git: 'git@github.com:plataformatec/devise.git'
