@@ -50,3 +50,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pg'
 gem 'haml-rails'
 gem 'devise', git: 'git@github.com:plataformatec/devise.git'
+gem 'bootstrap', '~> 4.0.0.alpha3'
+
+
+source 'https://rails-assets.org' do
+  #Added for bootstrap tooltips
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
