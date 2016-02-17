@@ -13,11 +13,20 @@
       %nav.navbar.navbar-light.bg-faded
         %a.navbar-brand
           Panda Juice
+
         %ul.nav.navbar-nav.navbar-right.pull-xs-right
-          %li.nav-item
-            = link_to "Login", :new_user_session, class: "nav-link"
-          %li.nav-item
-            = link_to "Sign Up", :new_user_registration, class: "btn btn-primary"
+          -if current_user
+            %li.nav-item
+              Signed in as
+              = current_user.email
+            %li.nav-item
+              = link_to "Log Out", :destroy_user_session, class: "btn btn-primary", method: :delete
+            
+          -else
+            %li.nav-item
+              = link_to "Login", :new_user_session, class: "nav-link"
+            %li.nav-item
+              = link_to "Sign Up", :new_user_registration, class: "btn btn-primary"
 
       .content
         = yield
