@@ -55,20 +55,22 @@ ActiveRecord::Schema.define(version: 20160217194310) do
     t.decimal "actual_unit_price", precision: 8, scale: 2, null: false
   end
 
+  create_table "sale_variants", force: :cascade do |t|
+    t.integer "sale_id"
+    t.integer "variant_id"
+    t.integer "total_quantity"
+    t.integer "quantity_left"
+    t.decimal "cost",           precision: 8, scale: 2
+    t.index ["sale_id"], name: "index_sale_variants_on_sale_id", using: :btree
+    t.index ["variant_id"], name: "index_sale_variants_on_variant_id", using: :btree
+  end
+
   create_table "sales", force: :cascade do |t|
     t.datetime "start",                      null: false
     t.datetime "finish",                     null: false
     t.boolean  "current",    default: false, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-  end
-
-  create_table "sales_variants", id: false, force: :cascade do |t|
-    t.integer "sale_id",                                null: false
-    t.integer "variant_id",                             null: false
-    t.integer "total_quantity"
-    t.integer "quantity_left"
-    t.decimal "cost",           precision: 8, scale: 2
   end
 
   create_table "users", force: :cascade do |t|
