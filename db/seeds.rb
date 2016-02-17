@@ -24,8 +24,8 @@ sc_3_30 = item.variants.create(sku: "#{item.name}-#{nic3.value}-#{size30.value}"
 sc_3_30.item_options << nic3
 sc_3_30.item_options << size30
 
-sale.sale_variants.create(:total_quantity => 30, :quantity_left => 25, :cost => 12.99, :variant => sc_3_10)
-sale.sale_variants.create(:total_quantity => 5, :quantity_left => 0, :cost => 7.00, :variant => sc_3_30)
+sv1 = sale.sale_variants.create(:total_quantity => 30, :quantity_left => 25, :cost => 12.99, :variant => sc_3_10)
+sv2 = sale.sale_variants.create(:total_quantity => 5, :quantity_left => 0, :cost => 7.00, :variant => sc_3_30)
 
 user = User.create(email: "admin@test.com", password: "password")
-#user.cart_variants.create(variant: sc_3_10)
+user.cart.line_items.create(:sale_variant => sv1, :quantity => 1, :actual_unit_price => 12.50)
