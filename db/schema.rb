@@ -11,10 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216212254) do
+ActiveRecord::Schema.define(version: 20160217191734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "user_id",       null: false
+    t.datetime "last_modified"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "item_options", force: :cascade do |t|
+    t.integer  "item_id",    null: false
+    t.string   "name",       null: false
+    t.string   "value",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "value", "item_id"], name: "index_item_options_on_name_and_value_and_item_id", unique: true, using: :btree
+  end
+
+  create_table "item_options_variants", id: false, force: :cascade do |t|
+    t.integer "item_option_id", null: false
+    t.integer "variant_id",     null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.datetime "start",                      null: false
+    t.datetime "finish",                     null: false
+    t.boolean  "current",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "sales_variants", id: false, force: :cascade do |t|
+    t.integer "sale_id",                                null: false
+    t.integer "variant_id",                             null: false
+    t.integer "total_quantity"
+    t.integer "quantity_left"
+    t.decimal "cost",           precision: 8, scale: 2
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -31,6 +75,14 @@ ActiveRecord::Schema.define(version: 20160216212254) do
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "variants", force: :cascade do |t|
+    t.string   "sku",        null: false
+    t.integer  "item_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sku"], name: "index_variants_on_sku", unique: true, using: :btree
   end
 
 end
