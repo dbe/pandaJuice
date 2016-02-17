@@ -7,5 +7,17 @@
     = action_cable_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
   %body
-    = yield
+    .container
+      %nav.navbar.navbar-light.bg-faded
+        %a.navbar-brand
+          Panda Juice
+        %ul.nav.navbar-nav.navbar-right.pull-xs-right
+          %li.nav-item
+            = link_to "Login", :new_user_session, class: "nav-link"
+          %li.nav-item
+            = link_to "Sign Up", :new_user_registration, class: "btn btn-primary"
+
+      .content
+        = yield
