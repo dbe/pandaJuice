@@ -1,2 +1,32 @@
-%h1 Root#index
-%p Find me in app/views/root/index.html.haml
+%h2
+  Current Sale
+
+%p
+  Start: 
+  = @sale.start
+
+%p
+  Finish:
+  = @sale.finish
+
+%h2
+  Items
+
+%ul
+  - @sale.items.each do |item|
+    %li
+      = item.name
+
+
+%h2
+  Variants
+
+%ul
+  - @sale.sale_variants.each do |sv|
+    %li
+      = sv.variant.sku
+      %ul
+        - sv.variant.item_options.each do |io|
+          %li
+            = "#{io.name} = #{io.value}"
+
