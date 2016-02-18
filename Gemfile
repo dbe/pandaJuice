@@ -51,6 +51,7 @@ gem 'pg'
 gem 'haml-rails'
 gem 'devise', git: 'git@github.com:plataformatec/devise.git'
 gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'paperclip'
 
 
 source 'https://rails-assets.org' do
