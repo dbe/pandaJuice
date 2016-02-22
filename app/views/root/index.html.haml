@@ -1,36 +1,91 @@
-%h2
-  Current Sale
+.row
+  .col-xs-12#sale-name
+    %h1
+      = @sale.name
+    %p#sale-timer
+      i
+.row
+  .col-md-6
+    = image_tag 'vwPromotional', :width => 400, :height => 600
+  %h2
+    Current Sale
 
-%p
-  Start: 
-  = @sale.start
+  %p
+    Start: 
+    = @sale.start
 
-%p
-  Finish:
-  = @sale.finish
+  %p
+    Finish:
+    = @sale.finish
 
-%h2
-  Items
+  %h2
+    Items
 
-%ul
-  - @sale.items.each do |item|
-    %li
-      = item.name
-      %ul
-        - item.images.each do |image|
-          %li
-            = image_tag image.photo.url(:medium)
+  %ul
+    - @sale.items.each do |item|
+      %li
+        = item.name
+        %ul
+          - item.images.each do |image|
+            %li
+              = image_tag image.photo.url(:medium)
 
 
-%h2
-  Variants
+  %h2
+    Variants
 
-%ul
-  - @sale.sale_variants.each do |sv|
-    %li
-      = sv.variant.sku
-      %ul
-        - sv.variant.item_options.each do |io|
-          %li
-            = "#{io.name} = #{io.value}"
+  %ul
+    - @sale.sale_variants.each do |sv|
+      %li
+        = sv.variant.sku
+        %ul
+          - sv.variant.item_options.each do |io|
+            %li
+              = "#{io.name} = #{io.value}"
 
+:javascript
+  var PandaJuice = PandaJuice || {};
+
+  //Takes ms since epoch of the finish date of the sale
+  PandaJuice.SaleTimer = function(finishMillis) {
+    var finishDate = moment(finishMillis);
+    var els = {};
+
+    this.addElement = addElement;
+
+    function addElement(id) {
+      if($.isEmptyObject(els)) {
+        //TODO: Add way to kill the interval once the timer gets to 0, or the element is removed
+        this.interval = setInterval(updateView, 1000);
+      }
+
+      var $el = $(id);
+      els[id] = $el;
+    }
+
+    //TODO: Make this generic. Potentially use momentjs-duration-format plugin
+    function updateView() {
+      str = getTimerString();
+
+      for(var id in els) {
+        els[id].html(str);
+      }
+    }
+
+    //TODO: Make this not show parts which are 0
+    function getTimerString() {
+      var diff = finishDate - moment();
+      if(diff <= 0) {
+        return "0 seconds";
+      }
+
+      var dur = moment.duration(finishDate - moment());
+      return dur.days() + " days, " + dur.hours() + " hours, " + dur.minutes() + " minutes, " + dur.seconds() + " seconds."
+    }
+  }
+
+  $(function() {
+    console.log("Document ready");
+    var st = new PandaJuice.SaleTimer(#{(@sale.finish.to_f * 1000).to_i});
+    st.addElement('#sale-timer');
+  });

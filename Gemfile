@@ -52,6 +52,7 @@ gem 'haml-rails'
 gem 'devise', git: 'git@github.com:plataformatec/devise.git'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'paperclip'
+gem 'momentjs-rails'
 
 
 source 'https://rails-assets.org' do

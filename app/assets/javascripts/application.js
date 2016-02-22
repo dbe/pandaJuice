@@ -17,4 +17,6 @@
 //= require tether
 //= require bootstrap
 //
+//= require moment
+//
 //= require_tree .

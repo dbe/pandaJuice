@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 
-sale = Sale.create(start: DateTime.now(), finish: DateTime.now() + 1.day)
+Sale.create(start: DateTime.now() - 2.days, finish: DateTime.now() - 1.day, :name => "Old Sale", :current => false)
+sale = Sale.create(start: DateTime.now(), finish: DateTime.now() + 1.day, :name => "Vape Wild Pre-Steeped Collection", :current => true)
 
 item = Item.create(name: 'Vape Wild (S+C)^2', description: 'A smooth strawberries and cream flavor from Vape Wild')
 

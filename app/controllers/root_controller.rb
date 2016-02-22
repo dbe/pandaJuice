@@ -4,6 +4,12 @@ class RootController < ApplicationController
       sale_variants: {
         variant: :item_options
       }
-    }).first
+    })
+    .where(:current => true)
+    .first
+
+    if(!@sale)
+      return render :no_sale
+    end
   end
 end
