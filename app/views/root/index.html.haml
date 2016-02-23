@@ -3,20 +3,11 @@
     %h1
       = @sale.name
     %p#sale-timer
-      i
+      &nbsp
+      
 .row
   .col-md-6
     = image_tag 'vwPromotional', :width => 400, :height => 600
-  %h2
-    Current Sale
-
-  %p
-    Start: 
-    = @sale.start
-
-  %p
-    Finish:
-    = @sale.finish
 
   %h2
     Items
@@ -54,13 +45,16 @@
     this.addElement = addElement;
 
     function addElement(id) {
-      if($.isEmptyObject(els)) {
-        //TODO: Add way to kill the interval once the timer gets to 0, or the element is removed
-        this.interval = setInterval(updateView, 1000);
-      }
+      var first = $.isEmptyObject(els);
 
       var $el = $(id);
       els[id] = $el;
+
+      if(first) {
+        //TODO: Add way to kill the interval once the timer gets to 0, or the element is removed
+        updateView();
+        this.interval = setInterval(updateView, 1000);
+      }
     }
 
     //TODO: Make this generic. Potentially use momentjs-duration-format plugin
