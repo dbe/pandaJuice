@@ -14,23 +14,22 @@ item = Item.create(name: 'Vape Wild (S+C)^2', description: 'A smooth strawberrie
 
 ####Item.create(name: 'Vape Wild Smurf Cake', description: 'A great creamy blueberry flavor from Vape Wild')
 
-nic3 = item.item_options.create(name: 'nicotine', value: '3 mg')
-nic6 = item.item_options.create(name: 'nicotine', value: '6 mg')
-size10 = item.item_options.create(name: 'volume', value: '10 mL')
-size30 = item.item_options.create(name: 'volume', value: '30 mL')
+nic3 = Property.create(name: 'nicotine', value: '3 mg')
+nic6 = Property.create(name: 'nicotine', value: '6 mg')
+size10 = Property.create(name: 'volume', value: '10 mL')
+size30 = Property.create(name: 'volume', value: '30 mL')
 
 sc_3_10 = item.variants.create(sku: "#{item.name}-#{nic3.value}-#{size10.value}")
-sc_3_10.item_options << nic3
-sc_3_10.item_options << size10
+sc_3_10.properties << nic3
+sc_3_10.properties << size10
 
 sc_3_30 = item.variants.create(sku: "#{item.name}-#{nic3.value}-#{size30.value}")
-sc_3_30.item_options << nic3
-sc_3_30.item_options << size30
+sc_3_30.properties << nic3
+sc_3_30.properties << size30
 
 sc_6_30 = item.variants.create(sku: "#{item.name}-#{nic6.value}-#{size30.value}")
-sc_6_30.item_options << nic6
-sc_6_30.item_options << size30
-
+sc_6_30.properties << nic6
+sc_6_30.properties << size30
 
 sv1 = sale.sale_variants.create(:total_quantity => 30, :quantity_left => 25, :cost => 12.99, :variant => sc_3_10)
 sv2 = sale.sale_variants.create(:total_quantity => 5, :quantity_left => 0, :cost => 7.00, :variant => sc_3_30)

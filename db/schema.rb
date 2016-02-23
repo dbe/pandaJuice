@@ -38,20 +38,6 @@ ActiveRecord::Schema.define(version: 20160218233234) do
     t.datetime "updated_at",         null: false
   end
 
-  create_table "item_options", force: :cascade do |t|
-    t.integer  "item_id",    null: false
-    t.string   "name",       null: false
-    t.string   "value",      null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "value", "item_id"], name: "index_item_options_on_name_and_value_and_item_id", unique: true, using: :btree
-  end
-
-  create_table "item_options_variants", id: false, force: :cascade do |t|
-    t.integer "item_option_id", null: false
-    t.integer "variant_id",     null: false
-  end
-
   create_table "items", force: :cascade do |t|
     t.string   "name",        null: false
     t.text     "description"
@@ -63,6 +49,19 @@ ActiveRecord::Schema.define(version: 20160218233234) do
     t.integer "sale_variant_id",                           null: false
     t.integer "quantity",                                  null: false
     t.decimal "actual_unit_price", precision: 8, scale: 2, null: false
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "value",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "value"], name: "index_properties_on_name_and_value", unique: true, using: :btree
+  end
+
+  create_table "properties_variants", id: false, force: :cascade do |t|
+    t.integer "property_id", null: false
+    t.integer "variant_id",  null: false
   end
 
   create_table "sale_variants", force: :cascade do |t|

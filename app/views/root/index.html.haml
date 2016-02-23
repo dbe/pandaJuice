@@ -30,9 +30,9 @@
       %li
         = sv.variant.sku
         %ul
-          - sv.variant.item_options.each do |io|
+          - sv.variant.properties.each do |p|
             %li
-              = "#{io.name} = #{io.value}"
+              = "#{p.name} = #{p.value}"
 
 :javascript
   var PandaJuice = PandaJuice || {};
