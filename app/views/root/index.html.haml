@@ -9,30 +9,37 @@
   .col-md-6
     = image_tag 'vwPromotional', :width => 400, :height => 600
 
-  %h2
-    Items
+  .col-md-6
+    .row
+      .card-group
+        - @sale.items.each do |item|
+          .col-md-6
+            .card.text-xs-center
+              .card-block
+                %h4.card-title
+                  = item.name
 
-  %ul
-    - @sale.items.each do |item|
-      %li
-        = item.name
-        %ul
-          - item.images.each do |image|
-            %li
-              = image_tag image.photo.url(:medium)
+              - if item.images.any?
+                = image_tag item.images.first.photo.url(:small), :class => 'card-img-top'
+              - else
+                no Image
+              .card-block
+                %p.card-text
+                  Hi, this is some card text, how do I look?
 
 
-  %h2
-    Variants
+    .row
+      %h2
+        Variants
 
-  %ul
-    - @sale.sale_variants.each do |sv|
-      %li
-        = sv.variant.sku
-        %ul
-          - sv.variant.properties.each do |p|
-            %li
-              = "#{p.name} = #{p.value}"
+      %ul
+        - @sale.sale_variants.each do |sv|
+          %li
+            = sv.variant.sku
+            %ul
+              - sv.variant.properties.each do |p|
+                %li
+                  = "#{p.name} = #{p.value}"
 
 :javascript
   var PandaJuice = PandaJuice || {};
